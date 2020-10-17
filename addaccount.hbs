@@ -1,0 +1,201 @@
+
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+h2{color:#ffff}
+/* body {
+  background-image: url('https://i.pinimg.com/originals/82/0c/98/820c981247cc8be38e2bc3c433fc77f4.jpg');
+} */
+*{
+  box-sizing: border-box;
+}
+body {
+  font-family: Arial;
+  font-size: 17px;
+}
+.container .content {
+  position: center;
+  top: 0;
+  background: rgb(0, 0, 0); /* Fallback color */
+  background: rgba(0, 0, 0, 0.5); /* Black background with 0.5 opacity */
+  color: #f1f1f1;
+  width: 100%;
+  padding: 20px;
+}
+.alert{
+  color:lightgreen;
+  background: #00000000;
+  background: rgba(0, 0, 0, 0.7);
+  width: 600px;
+  cursor: auto;
+}
+</style>
+<script>
+
+$(document).ready(function(){
+$("#domaincharge").hide()
+//to get current Date
+      var curdate = new Date()
+
+// console.log(d);
+// console.log(d.toString());
+// console.log(d.toISOString());
+// console.log(d.toUTCString());
+// console.log(d.toDateString());
+// console.log(d.toLocaleDateString());
+// console.log(d.getUTCDate());
+// console.log(d.addYears(1));
+          $("#rdate").val(curdate.toLocaleString() )
+
+//for automatic expiry date
+$("#timeperiod").on("input" ,function(){
+  var curdate1 = new Date(curdate)
+  var timeperiod= $("#tperiod").val()
+  var planname=$("#plan").val()
+  // console.log(jQuery.type(timeperiod));
+  curdate1.setYear(curdate1.getFullYear() + (timeperiod-""));
+  //to get the charges of relevent planName
+  var mydata = "planname=" + planname;
+      $.ajax({
+          url: '/getcharges',
+          data: mydata,
+          type: 'get',
+          success: function (res) {
+              var totalc=((res.data[0].charges-"")+($("#domainchargevalue").val()-""))*(timeperiod-"")
+               console.log(totalc);
+               $("#hostingchargevalue").val(totalc)
+               $("#totalchargevalue").val(totalc)
+    }
+    })
+
+
+          $("#expdate").val(curdate1.toLocaleString());
+ })
+//to hide and show domain charge field
+$("#domaintaken").change(function () {
+    var domaintaken= $(this).val()
+// console.log((domaintaken == "yes"));
+if(domaintaken == "yes")
+      $("#domaincharge").show()
+else if(domaintaken=="no")
+      $("#domaincharge").hide()
+})
+
+//to calculate total charges
+$("#domaincharge").on("input" ,function(){
+var hostingcharge = $("#hostingchargevalue").val()
+var domaincharge= $("#domainchargevalue").val()
+var timeperiod= $("#tperiod").val()
+ var total=0 ;
+console.log( (hostingcharge-""));
+console.log((timeperiod-""))
+// console.log(isNaN(domaincharge ));
+if ((hostingcharge-"")!=0){
+  total = (hostingcharge-"") + ((domaincharge-"")*(timeperiod-""))
+   $("#totalchargevalue").val(total)
+ }
+ else {
+   total = (domaincharge-"")
+    $("#totalchargevalue").val(total)
+ }
+})
+
+
+
+})
+
+
+</script>
+</head>
+<body>
+{{login}}
+{{#if msg}}
+<div class="alert alert-success alert-dismissible">
+<a style="color:white; float:right;" href="#" data-dismiss="alert">&times;</a>
+{{msg}}</div>{{/if}}
+<div class="container">
+<div class="content">
+<h2>Enter respective informations given below in the fields:</h2>
+     <form action="/addaccount" method="Post">
+      <div class="form-row" >
+      <div class="form-group col-md-6">
+        <label class="txt" for="text">Choose customer:</label>
+        <select class="form-control" placeholder="dropdown" id="assetidid" name="customer">
+          <option disabled>select asset</option>
+          {{#each data1}}
+          <option value="{{this.customerId}},{{this.firstName}}">{{this.firstName}}</option>
+          {{/each}}
+</select >
+      </div>
+      <div class="form-group col-md-6">
+        <label for="text">Domain Name:</label>
+        <input type="text" class="form-control" id="lname" placeholder="enter domain name" name="domain" required>
+      </div>
+    </div>
+    <div class="form-row" >
+      <div class="form-group col-md-6">
+        <label for="text">plan:</label>
+        <select class="form-control" placeholder="dropdown"  id="plan" name="plan" required>
+          <option disabled>select asset</option>
+          {{#each data2}}
+          <option>{{this.planName}}</option>
+          {{/each}}
+  </select>
+      </div>
+      <div id="msg"></div>
+      <div id="email" class="form-group col-md-6">
+        <label for="email">Domain taken (yes or no):</label>
+        <select class="form-control" placeholder="dropdown"  id="domaintaken" name="domaintaken" required>
+          <option>select</option>
+          <option>yes</option>
+          <option>no</option>
+
+  </select>
+              </div>
+    </div>
+    <div class="form-row" >
+            <div id="" class="form-group col-md-4">
+            <label for="text">Register date:</label>
+            <input type="text" class="form-control" id="rdate" placeholder="Enter registration Date" name="register" required>
+            </div>
+            <div id="timeperiod" class="form-group col-md-4">
+            <label for="text">Time period (in years):</label>
+            <input type="text" class="form-control" id="tperiod" placeholder="Enter time period " name="time" required>
+            </div>
+            <div class="form-group col-md-4">
+            <label for="text">Expiry date:</label>
+            <input type="text" class="form-control"  id="expdate" placeholder="Enter expiry Date" name="expiry" required>
+            </div>
+    </div>
+    <div  id="domaincharge" class="form-row" >
+            <div class="form-group col-md-12">
+            <label for="text">Domain charges (per year)</label>
+            <input type="text" class="form-control"  id="domainchargevalue" placeholder="Enter domain charge" name="dcharge" >
+            </div>
+
+    </div>
+    <div class="form-row" >
+            <div id="hostingcharge" class="form-group col-md-6">
+            <label for="text">Hosting charges:</label>
+            <input type="text" class="form-control" id="hostingchargevalue" placeholder="Enter hosting charge" name="hcharge" readonly />
+            </div>
+            <div id="totalcharge" class="form-group col-md-6">
+            <label for="text">Total charges:</label>
+            <input type="text" class="form-control" id="totalchargevalue" placeholder="Enter total charge" name="tcharge" readonly />
+            </div>
+
+    </div>
+
+
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+
+
+
+    </form>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>CMS Server Management</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+</head>
+<style>body {
+  /* background-image: url('https://events.drivingsales.com/wp-content/uploads/2017/02/Lotlinx_backgroundpng-1920x1281.png'); */
+  /* background-image: url('https://a2z-itc.com/wp-content/uploads/2020/03/slide__2.jpg'); */
+  background-image: url('https://www.fifthquadrant.tech/wp-content/uploads/2018/11/orange-green-technology-background-footage-070787698_prevstill.jpeg');
+   background-size:cover;
+}
+.navbar-inverse .container-fluid .navbar-right  a {
+  color:black;
+}
+.navbar-inverse .container-fluid .navbar-header a {
+  color:black;
+}
+</style>
+<body>
+
+<nav class="navbar navbar-inverse" style="background-color:#4dff4d">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">CMS Server Management</a>
+
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+
+      <ul class="nav navbar-nav">
+        {{#if login}}
+        <li ><a href="#">Home</a></li>
+        {{/if}}
+        {{#if slogin}}
+        <li ><a href="#">Home</a></li>
+        {{/if}}
+        {{#if clogin}}
+        <li ><a href="#">Home</a></li>
+        {{/if}}
+
+
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+              {{#if login}}
+
+
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown">Customer<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="/addcustomer">AddNewCustomer</a></li>
+                  <li><a href="/showcustomer">ViewAllCustomer</a></li>
+                  </ul>
+                </li>
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown">Plans<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="/addp">AddPlans</a></li>
+                  <li><a href="/showplan">ViewAllPlans</a></li>
+                  </ul>
+                </li>
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown">Accounts<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="/addac">AddNewAccount</a></li>
+                  <li><a href="/showaccount">ViewAllAccount</a></li>
+                  </ul>
+                </li>
+                <li><a href="/showtransectionhistory">ViewTransectionHistory</a></li>
+                <li><a href="/alogout"><span class="glyphicon glyphicon-log-out"></span>logout</a></li>
+                {{else}}
+
+                {{#if customer}}
+                <li><a href="/showcustomeraccount">customerAccount</a>
+
+                <!-- <li><a href="/showpending">PendingRequest</a></li>
+                <li><a href="/showmreq">MyRequest</a></li>
+                <li><a href="/showassets?logid={{mloggedin}}">MyAssets</a></li>
+                <li><a href="/showteam?logid={{mloggedin}}">MyEployees</a></li>
+                <li><a href="/task">Tasks</a></li>
+                <li><a href="/transfermasset">TransferAsset</a></li>
+                <li><a href="/email?logid={{mloggedin}}">E-mail</a></li> -->
+                <li><a href="/customerlogout"><span class="glyphicon glyphicon-log-out"></span>logout</a></li>
+                  {{else}}
+                  {{#if eloggedin}}
+                  <li><a href="/profile?logid={{eloggedin}}">Profile</a></li>
+                  <li><a href="/createereq">CreateRequest</a></li>
+                  <li><a href="/transfereasset">TranferAsset</a></li>
+                  <li><a href="/showempreq">MyRequest</a></li>
+                  <li><a href="/showemptask">ViewTasks</a></li>
+                  <li><a href="/showassets?logid={{eloggedin}}">MyAssets</a></li>
+                  <li><a href="/showteam?logid={{eloggedin}}">TeamMembers</a></li>
+                  <li><a href="/email?logid={{eloggedin}}">E-mail</a></li>
+                  <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span>logout</a></li>
+                  {{else}}
+                  {{#if sloggedin}}
+                  <li><a href="/profile?logid={{sloggedin}}">Profile</a></li>
+                  <li><a href="/showsupportreq">ViewRequest</a></li>
+                  <li><a href="/showsassets">reports</a></li>
+                  <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span>logout</a></li>
+                  {{else}}
+<!-- <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown">login<span class="caret"></span></a> -->
+
+<!-- <ul class="dropdown-menu"> -->
+  <!-- <li><a href="/alog"><span class="glyphicon glyphicon-log-in"></span> Adminlogin</a></li> -->
+  <!-- <li><a href="/slog"><span class="glyphicon glyphicon-log-in"></span> SubAdminLogin</a></li> -->
+  <!-- <li><a href="/clog"><span class="glyphicon glyphicon-log-in"></span> user</a></li> -->
+
+  <!-- </ul> -->
+<!-- </li> -->
+{{/if}}
+{{/if}}
+{{/if}}
+{{/if}}
+
+      </ul>
+
+
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  {{{body}}}
+</div>
+
+</body>
+</html>

@@ -1,0 +1,57 @@
+{{login}}
+<style>
+h2{color:#ffff}
+/* body {
+  background-image: url('https://i.pinimg.com/originals/82/0c/98/820c981247cc8be38e2bc3c433fc77f4.jpg');
+} */
+
+body {
+  font-family: Arial;
+  font-size: 17px;
+}
+.table{
+  color:#ffff;
+  background: #00000000;
+  background: rgba(0, 0, 0, 0.7);
+  cursor: auto;
+}
+h1{
+  color: white;
+}
+.alert{
+  color:lightgreen;
+  background: #00000000;
+  background: rgba(0, 0, 0, 0.7);
+  width: 600px;
+  cursor: auto;
+}
+</style>
+<body>
+
+    {{#if msg}}
+  <div class="alert alert-success alert-dismissible">
+    <a style="color:white; float:right;" href="#" data-dismiss="alert">&times;</a>
+    {{msg}}</div>{{/if}}
+<table class='table' border='1'>
+  <tr><th>firstName</th><th>lastNamee</th><th>email</th><th>mobileNo</th><th>Actions</th></tr>
+{{#each data}}
+ <tr>
+      <td>{{this.firstName}}</td>
+      <td>{{this.lastName}}</td>
+      <td>{{this.email}}</td>
+      <td>{{this.mobileNo}}</td>
+
+      <td><a href="/deletecustomer?customerid={{this.customerId}}" onClick="return confirm('do you really want to delete?')" class="btn btn-info btn-lg">
+          <span class="glyphicon glyphicon-trash"></span> Trash
+        </a>
+      <a href="/upcustomer?customerid={{this.customerId}}" onClick="return confirm('do you really want to update?')" class="btn btn-info btn-lg">
+        <span class="glyphicon glyphicon-edit"></span>edit
+      </a></td>
+
+ </tr>
+
+{{/each}}
+
+ </table>
+<!-- </div> -->
+</body>

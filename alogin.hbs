@@ -1,0 +1,270 @@
+<style>body {
+  height: 100%;
+  overflow: hidden;
+  width: 100% !important;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+}
+
+
+
+.backRight {
+  position: absolute;
+  right: 0;
+  width: 50%;
+  height: 100%;
+  /* background: #3498db url('https://i.pinimg.com/originals/82/0c/98/820c981247cc8be38e2bc3c433fc77f4.jpg'); */
+  background-size: auto;
+  background-position: 1400% 80%;
+}
+
+.backLeft {
+  position: absolute;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  /* background: #e74c3c url('https://i.pinimg.com/originals/82/0c/98/820c981247cc8be38e2bc3c433fc77f4.jpg'); */
+  background-size: auto;
+  background-position: 130% 80%;
+}
+
+#back {
+  width: 100%;
+  height: 100%;
+  position: auto;
+  z-index: -999;
+  margin-top: -22px;
+
+}
+
+#slideBox {
+  width: 50%;
+  max-height: 100%;
+  height: 100%;
+  overflow: hidden;
+  margin-left: 50%;
+  position: absolute;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+.topLayer {
+  width: 200%;
+  height: 100%;
+  position: relative;
+  left: 0;
+  left: -100%;
+
+}
+
+.left {
+  width: 50%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  left: 0;
+  position: absolute;
+}
+
+.right {
+  width: 50%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  right: 0;
+  position: absolute;
+}
+
+.content {
+  width: 300px;
+  margin: -50px auto;
+  top: 30%;
+  position: absolute;
+  left: 40%;
+  margin-left: -125px;
+  color: #ffff;
+}
+h2{
+  color: #80ff80
+}
+h3{
+ color: red;
+}
+ h4{
+  color: red;
+}
+.info {
+text-align: center;
+ font-family: 'Roboto', sans-serif;
+ color: green;
+ font-size: 14px;
+}
+
+
+.content h2 {
+  color: #03A9F4;
+  font-weight: 300;
+  font-size: 35px;
+}
+
+button {
+  background: #03A9F4;
+  padding: 10px 16px;
+  width: auto;
+  font-weight: 600;
+  font-size: 14px;
+    text-transform:  uppercase;
+  color: #fff;
+  line-height: 16px;
+  letter-spacing: 0.5px;
+  border-radius: 2px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1), 0 3px 6px rgba(0,0,0,0.1);
+  border: 0;
+  outline: 0;
+  margin: 15px 15px 15px 0;
+  transition: all 0.25s;
+}
+
+button:hover {
+  background: #0288D1;
+  box-shadow: 0 4px 7px rgba(0,0,0,0.1), 0 3px 6px rgba(0,0,0,0.1);
+}
+.off {
+  background: none;
+  color: #03A9F4;
+  box-shadow: none;
+}
+
+.right .off:hover {
+  background: #eee;
+  color: #03A9F4;
+  box-shadow: none;
+}
+.left .off:hover {
+  box-shadow: none;
+  color: #03A9F4;
+  background: #363A3D;
+}
+input {
+  background: transparent;
+  border: 0;
+  outline: 0;
+  border-bottom: 1px solid #45494C;
+  font-size: 14px;
+  color: #ffff;
+  padding: 2px 20px;
+
+  margin-top: 10px;
+}
+.alert{
+  color:lightgreen;
+  background: #00000000;
+  background: rgba(0, 0, 0, 0.7);
+  width: 600px;
+  cursor: auto;
+}
+</style>
+<script>
+$(document).ready(function(){
+  $('#goRight').on('click', function(){
+    $('#slideBox').animate({
+      'marginLeft' : '0'
+    });
+    $('.topLayer').animate({
+      'marginLeft' : '100%'
+    });
+
+  });
+
+
+  $('#goLeft').on('click', function(){
+    $('#slideBox').animate({
+      'marginLeft' : '50%'
+    });
+    $('.topLayer').animate({
+      'marginLeft': '0 '
+    });
+
+  });
+  var str=$("h4").text();
+  console.log((str.indexOf("wrong"))!=-1)
+  if((str.indexOf("wrong"))!=-1){
+    $('#slideBox').animate({
+      'marginLeft' : '0'
+    });
+    $('.topLayer').animate({
+      'marginLeft' : '100%'
+    });
+  }
+
+
+});
+</script>
+<body>
+  {{#if msg2}}
+  <div class="alert alert-success alert-dismissible">
+  <a style="color:white; float:right;" href="#" data-dismiss="alert">&times;</a>
+  {{msg2}}</div>{{/if}}
+
+  <div id="back">
+  <div class="backRight"></div>
+  <div class="backLeft"></div>
+</div>
+
+<div id="slideBox">
+  <div class="topLayer">
+
+    <div class="left">
+
+      <div id="b" class="content">
+
+        <h2>forgot password</h2>
+        <form action="/adminforgotpwd" method="post">
+          <div class='info'>  {{#if msg1}}
+             <h4>  {{msg1}}</h4>
+         {{else}}Enter email-Id and recoveryEmail {{/if}}</div>
+
+
+          <div class="form-group">
+            <label for="username" id=""  class="form-label">EnterYourEmailid:</label>
+            <input type="text" placeholder="enter your e-mail" name="logid" required>
+          </div>
+          <div class="form-group">
+            <label for="username" class="form-label" >EnterRecoveryEmailid:</label>
+            <input type="text" placeholder="enter recovery e-mail" name="remailid" required>
+          </div>
+          <button type="submit">Get Password</button>
+        </form>
+        <button id="goLeft" class="off">Back To Login</button>
+
+      </div>
+    </div>
+
+    <div class="right">
+      <div class="content">
+        <h2>Admin Login</h2>
+        <form action="/logcheck" method="post">
+          <div class='info'>  {{#if msg}}
+             <h3>  {{msg}}</h3>
+         {{else}}Enter User-Id and Password {{/if}}</div>
+
+          <div class="form-group">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" name="alog" required>
+          </div>
+          <div class="form-group">
+            <label for="username" class="form-label">password</label>
+            <input type="password" name="pass" required>
+          </div>
+
+          <button id="login" type="submit">Login</button>
+
+        </form>
+<button id="goRight" class="off">forgot password?</button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+</body>
+<!--Inspiration from: http://ertekinn.com/loginsignup/-->

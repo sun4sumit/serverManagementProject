@@ -1,0 +1,61 @@
+<style>
+h2{color:#ffff}
+body {
+  /* background-image: url('https://i.pinimg.com/originals/82/0c/98/820c981247cc8be38e2bc3c433fc77f4.jpg'); */
+}
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial;
+  font-size: 17px;
+}
+#i{
+  color:#ffff;
+  background: #000000;
+}
+.txt{
+  color: #ffff
+}
+.t{
+  background: #004d9900
+}
+.container .content {
+  position: center;
+  top: 0;
+  background: rgb(0,0, 0); /* Fallback color */
+  background: rgba(0, 0, 0, 0.5); /* Black background with 0.5 opacity */
+  color: #f1f1f1;
+  width: 100%;
+  padding: 100px;
+}
+</style>
+<body>
+<div class='container'>
+  <div class='content'>
+  {{#if login}}
+  <h1>Welcome Admin</h1>
+  <h3>You are authorised to add customer,edit and delete customer</h3>
+  <h3>And you can add,view,edit,and delete plans</h3>
+  <h3>And you can give the demanded plans</h3>
+{{/if}}
+{{#if customer}}
+<h1>welcome to customer home</h1>
+<h3>Now you can see all the account related information</h3>
+{{/if}}
+{{#if eloggedin}}
+<h1>welcome to employee home</h1>
+<h3>Now you can raise the request for asset you want.
+and you can transfer your assets .</h3>
+{{/if}}
+{{#if sloggedin}}
+<h1>welcome to support home</h1>
+<h3>Now you can see the request raised by employees for assets.
+and can generate the report.</h3>
+{{/if}}
+
+
+</div>
+</div>
+</body>
